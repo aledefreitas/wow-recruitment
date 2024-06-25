@@ -17,6 +17,7 @@ tasks:
       - sh: '[[ "$ENVIRONMENT" == "dev" || "$ENVIRONMENT" == "staging" || "$ENVIRONMENT" == "prod" ]]'
         msg: 'Valid commands for up are: up-dev, up-staging, up-prod'
     cmds:
+      - task: secrets:generate-{{.ENV}}-dotenv
       - task: docker:build
         vars: {ENV: '{{.ENV}}'}
       - task: docker:up
