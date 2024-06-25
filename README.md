@@ -82,11 +82,11 @@ It `SHOULD` accomplish the following:
 - [ ] [XDebug](https://xdebug.org/)
 
 ### CI/CD
-- [ ] [Secret Vault (Infisical)](https://infisical.com/)
+- [x] [Secret Vault (Infisical)](https://infisical.com/)
 - [ ] [Github Actions](https://docs.github.com/en/actions)
 
 ### Workflow
-- [ ] Gitflow
+- [x] Gitflow
 
 # Requirements
 - [Taskfile](https://taskfile.dev/installation/)
@@ -97,7 +97,7 @@ It `SHOULD` accomplish the following:
 ### Development
 Simply run the following command in your terminal
 ```sh
-$ task dev
+$ task up-dev
 ```
 
 # Documentation

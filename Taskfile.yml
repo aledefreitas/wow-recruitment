@@ -1,4 +1,31 @@
 version: '3'
 
+dotenv: ['.env', '{{.ENV}}/.env', '{{.HOME}}/.env']
+env:
+  ENVIRONMENT: '{{.ENV | default "dev"}}'
+
 includes:
+  docker: ./.docker
+  secrets: ./.tasks/secretsTaskfile.yml
   ci: ./.tasks/ciTaskfile.yml
+
+tasks:
+  up-*:
+    vars:
+      ENV: '{{index .MATCH 0}}'
+    preconditions:
+      - sh: '[[ "$ENVIRONMENT" == "dev" || "$ENVIRONMENT" == "staging" || "$ENVIRONMENT" == "prod" ]]'
+        msg: 'Valid commands for up are: up-dev, up-staging, up-prod'
+    cmds:
+      - task: docker:build
+        vars: {ENV: '{{.ENV}}'}
+      - task: docker:up
+        vars: {ENV: '{{.ENV}}'}
+  bash:
+    cmds:
+      - task: docker:exec
+        vars: {USER: 'www-data', CONTAINER: 'wrt_app'}
+  cache-cli:
+    cmds:
+      - task: docker:exec
+        vars: {CONTAINER: 'wrt_keydb', COMMAND: "keydb-cli -a $KEYDB_CACHE_PASSWORD"}

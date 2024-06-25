@@ -1,0 +1,31 @@
+version: '3'
+
+vars:
+  ENV: '{{default "dev" .ENV}}'
+env:
+  ENV: '{{.ENV}}'
+  UID:
+    sh: 'id -u'
+  GID:
+    sh: 'id -g'
+
+tasks:
+  build:
+    internal: true
+    cmds:
+      - docker compose build
+  up:
+    internal: true
+    cmds:
+      - docker compose up -d --remove-orphans
+  down:
+    cmds:
+      - docker compose down
+  exec:
+    internal: true
+    vars:
+      USER: '{{default "root" .USER}}'
+      CONTAINER: '{{default "app" .CONTAINER}}'
+      COMMAND: '{{default "bash" .COMMAND}}'
+    cmds:
+      - docker compose exec -u {{.USER}} {{.CONTAINER}} {{.COMMAND}}
