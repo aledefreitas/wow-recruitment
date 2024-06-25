@@ -72,7 +72,8 @@ It `SHOULD` accomplish the following:
 ### Automation
 - [ ] [Taskfile](https://taskfile.dev/)
 - [ ] [Husky](https://typicode.github.io/husky/)
-- [ ] [PKL](https://pkl-lang.org/index.html)
+- [ ] ~~[PKL](https://pkl-lang.org/index.html)~~
+(_can't justify this not reinventing the wheel on this project_)
 - [ ] [Docker](https://docs.docker.com/)
 
 ### Debugging

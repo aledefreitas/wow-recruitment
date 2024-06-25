@@ -1,0 +1,18 @@
+{
+  "name": "wow-recruitment",
+  "description": "An (purposefully) over-engineered piece of code intended for applying technologies and patterns in order add to my tech stack skill set while attempting to solve problems I came across in my hobby!",
+  "version": "1.0.0",
+  "type":"module",
+  "main": "commitlint.config.js",
+  "author": "Alexandre Caetano",
+  "license": "ISC",
+  "scripts": {
+    "prepare": "husky",
+    "commitlint": "commitlint --edit"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "husky": "^9.0.11"
+  }
+}
