@@ -1,0 +1,6 @@
+version: '3'
+
+tasks:
+  commitlint:
+    cmds:
+      - npm run commitlint {{.CLI_ARGS}}

@@ -53,3 +53,6 @@
 
 # NodeJS
 node_modules/
+
+# Env
+.env

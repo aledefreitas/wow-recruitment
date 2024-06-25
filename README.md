@@ -25,7 +25,9 @@
     - [Debugging](#debugging)
     - [CI/CD](#cicd)
     - [Workflow](#workflow)
+- [Requirements](#requirements)
 - [Installation](#installation)
+    - [Development](#development)
 - [Documentation](#documentation)
 - [Running Tests](#running-tests)
 
@@ -64,14 +66,14 @@ It `SHOULD` accomplish the following:
 - [ ] [PHP CS Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
 - [ ] [PHPStan](https://phpstan.org/)
 - [ ] [PHP Mess Detector](https://phpmd.org/)
-- [ ] [commitlint](https://commitlint.js.org/)
+- [x] [commitlint](https://commitlint.js.org/)
 
 ### Message Broker
 - [ ] [Apache Kafka](https://kafka.apache.org/documentation/)
 
 ### Automation
-- [ ] [Taskfile](https://taskfile.dev/)
-- [ ] [Husky](https://typicode.github.io/husky/)
+- [x] [Taskfile](https://taskfile.dev/)
+- [x] [Husky](https://typicode.github.io/husky/)
 - [ ] ~~[PKL](https://pkl-lang.org/index.html)~~
 (_can't justify this not reinventing the wheel on this project_)
 - [ ] [Docker](https://docs.docker.com/)
@@ -80,14 +82,23 @@ It `SHOULD` accomplish the following:
 - [ ] [XDebug](https://xdebug.org/)
 
 ### CI/CD
-- [ ] [Secret Vault (Infiscal)](https://infisical.com/)
+- [ ] [Secret Vault (Infisical)](https://infisical.com/)
 - [ ] [Github Actions](https://docs.github.com/en/actions)
 
 ### Workflow
 - [ ] Gitflow
 
+# Requirements
+- [Taskfile](https://taskfile.dev/installation/)
+- [Docker](https://docs.docker.com/get-docker/) installed with [Compose V2](https://docs.docker.com/compose/install/)
+
 # Installation
-TBD
+
+### Development
+Simply run the following command in your terminal
+```sh
+$ task dev
+```
 
 # Documentation
 TBD

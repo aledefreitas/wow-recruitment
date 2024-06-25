@@ -1,1 +1,1 @@
-npm run commitlint ${1}
+task ci:commitlint -- ${1}
