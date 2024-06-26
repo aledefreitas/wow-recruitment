@@ -1,0 +1,28 @@
+volumes:
+  wrt_pgsql_data:
+    driver: local
+  wrt_mongodb_data:
+    driver: local
+  wrt_elasticsearch_data:
+    driver: local
+  wrt_unix_sockets:
+    driver: local
+
+networks:
+  wrt_internal_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.177.63.0/24
+
+services:
+  # WoW Recruitment App
+  wrt_app:
+    build:
+      context: .
+      dockerfile: ./.docker/app/Dockerfile
+      target: ${ENV:-prod}
+    env_file: ./.env
+    container_name: wrt_app
+    volumes:
+      - wrt_unix_sockets:/var/run/sockets/

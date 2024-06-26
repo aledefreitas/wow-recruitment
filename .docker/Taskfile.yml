@@ -10,22 +10,29 @@ env:
     sh: 'id -g'
 
 tasks:
+  compose:
+    internal: true
+    cmds:
+      - DEV_COMPOSE=$([ "$ENV" == "dev" ] && echo "-f docker-dev-compose.yml" || echo ""); echo $DEV_COMPOSE; echo {{.ENV}}; docker compose -f docker-compose.yml $DEV_COMPOSE {{.COMMAND}}
   build:
     internal: true
     cmds:
-      - docker compose build
+      - task: compose
+        vars: {COMMAND: build, ENV: '{{.ENV}}'}
   up:
     internal: true
     cmds:
-      - docker compose up -d --remove-orphans
+      - task: compose
+        vars: {COMMAND: 'up -d --remove-orphans', ENV: '{{.ENV}}'}
   down:
     cmds:
-      - docker compose down
+      - task: compose
+        vars: {COMMAND: 'down', ENV: '{{.ENV}}'}
   exec:
     internal: true
     vars:
       USER: '{{default "root" .USER}}'
       CONTAINER: '{{default "app" .CONTAINER}}'
-      COMMAND: '{{default "bash" .COMMAND}}'
+      COMMAND: '{{default "/bin/sh" .COMMAND}}'
     cmds:
       - docker compose exec -u {{.USER}} {{.CONTAINER}} {{.COMMAND}}

@@ -13,6 +13,7 @@ The goal with this documentation is to keep an organized view of all current tas
     - [`bash`](#bash)
     - [`cache-cli`](#cache-cli)
   - [Docker Taskfile (docker:\*)](#docker-taskfile-docker)
+    - [`docker:compose`](#dockercompose)
     - [`docker:build`](#dockerbuild)
     - [`docker:up`](#dockerup)
     - [`docker:exec`](#dockerexec)
@@ -66,6 +67,14 @@ $ task cache-cli
 > - `ENV`: receives `{{.ENV}}` variable value
 > - `UID`: receives the current user id from shell command `id -u`
 > - `GID`: receives the current group id from shell command `id -g`
+
+### `docker:compose`
+Executes `docker compose` with a given command, configured for current env
+> [!CAUTION]
+> **Internal task**
+```sh
+$ task docker:compose COMMAND=<command|"build">
+```
 
 ### `docker:build`
 Builds all containers
