@@ -51,18 +51,18 @@ It `SHOULD` accomplish the following:
 > [!IMPORTANT]
 > These are subject to change throughout the development of this project
 ### Databases
-- [ ] [MongoDB](https://www.mongodb.com/docs/)
+- [x] [MongoDB](https://www.mongodb.com/docs/)
 - [ ] [PostgreSQL](https://www.postgresql.org/docs/)
 - [ ] [ElasticSearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 
 ### In-Memory Store
-- [ ] [KeyDB](https://docs.keydb.dev/)
+- [x] [KeyDB](https://docs.keydb.dev/)
 
 ### Language
-- [ ] [PHP 8.3](https://www.php.net/releases/8.3/en.php)
+- [x] [PHP 8.3](https://www.php.net/releases/8.3/en.php)
 
 ### Framework
-- [ ] [Symfony @ latest](https://symfony.com/doc/current/index.html)
+- [x] [Symfony @ latest](https://symfony.com/doc/current/index.html)
 
 ### Standards Compliance
 - [ ] [PHP CS Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
@@ -78,10 +78,10 @@ It `SHOULD` accomplish the following:
 - [x] [Husky](https://typicode.github.io/husky/)
 - [ ] ~~[PKL](https://pkl-lang.org/index.html)~~
 (_can't justify this not reinventing the wheel on this project_)
-- [ ] [Docker](https://docs.docker.com/)
+- [x] [Docker](https://docs.docker.com/)
 
 ### Debugging
-- [ ] [XDebug](https://xdebug.org/)
+- [x] [XDebug](https://xdebug.org/)
 
 ### CI/CD
 - [x] [Secret Vault (Infisical)](https://infisical.com/)
