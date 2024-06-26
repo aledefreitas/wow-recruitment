@@ -52,7 +52,7 @@ It `SHOULD` accomplish the following:
 > These are subject to change throughout the development of this project
 ### Databases
 - [x] [MongoDB](https://www.mongodb.com/docs/)
-- [ ] [PostgreSQL](https://www.postgresql.org/docs/)
+- [x] [PostgreSQL](https://www.postgresql.org/docs/)
 - [ ] [ElasticSearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 
 ### In-Memory Store
