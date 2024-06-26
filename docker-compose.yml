@@ -16,6 +16,28 @@ networks:
         - subnet: 172.177.63.0/24
 
 services:
+  wrt_keydb:
+    container_name: wrt_keydb
+    user: "${UID:-1000}:${GID:-1000}"
+    # alpine docker images are currently experimental, and KeyDB still requires a bit of work to fully support Alpine Builds
+    # @see https://hub.docker.com/r/eqalpha/keydb
+    image: 'eqalpha/keydb:x86_64_v6.3.3'
+    restart: unless-stopped
+    command: ['keydb-server', '/usr/local/etc/keydb/keydb.conf', '--requirepass ${KEYDB_CACHE_SECRET:-changeme}']
+    logging:
+        options:
+            max-size: "20m"
+            max-file: "5"
+    environment:
+      - KEYDB_CACHE_SECRET="${KEYDB_CACHE_SECRET:-changeme}"
+    ports:
+      - '${KEYDB_CACHE_PORT:-6379}:6379'
+    volumes:
+      - './.docker/keydb/keydb.conf:/usr/local/etc/keydb/keydb.conf'
+      - 'wrt_unix_sockets:/tmp/'
+    networks:
+      - wrt_internal_network
+
   # WoW Recruitment App
   wrt_app:
     build:
@@ -25,6 +47,7 @@ services:
       args:
           UID: ${UID:-1000}
           GID: ${GID:-1000}
+    restart: unless-stopped
     env_file: ./.env
     container_name: wrt_app
     volumes:
@@ -35,3 +58,5 @@ services:
       - ./.docker/app/php/config/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
       - ./logs:/app/logs
       - wrt_unix_sockets:/var/run/sockets/
+    networks:
+      - wrt_internal_network

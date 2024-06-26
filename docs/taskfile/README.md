@@ -95,7 +95,7 @@ Executes a given command inside a given container, using given user
 > [!CAUTION]
 > **Internal task**
 ```sh
-$ task docker:exec USER=<user|"root"> CONTAINER=<container|"app"> COMMAND=<command|"bash">
+$ task docker:exec DOCKER_USER=<user|"root"> DOCKER_CONTAINER=<container|"app"> EXEC_COMMAND=<command|"bash">
 ```
 ### `docker:down`
 Shuts down containers

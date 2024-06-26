@@ -31,8 +31,8 @@ tasks:
   exec:
     internal: true
     vars:
-      USER: '{{default "root" .USER}}'
-      CONTAINER: '{{default "app" .CONTAINER}}'
-      COMMAND: '{{default "/bin/sh" .COMMAND}}'
+      DOCKER_USER: '{{default "root" .DOCKER_USER}}'
+      DOCKER_CONTAINER: '{{default "app" .DOCKER_CONTAINER}}'
+      EXEC_COMMAND: '{{default "/bin/sh" .EXEC_COMMAND}}'
     cmds:
-      - docker compose exec -u {{.USER}} {{.CONTAINER}} {{.COMMAND}}
+      - docker compose exec -u {{.DOCKER_USER}} {{.DOCKER_CONTAINER}} {{.EXEC_COMMAND}}

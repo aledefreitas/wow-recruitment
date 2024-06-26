@@ -25,8 +25,8 @@ tasks:
   bash:
     cmds:
       - task: docker:exec
-        vars: {USER: 'www-data', CONTAINER: 'wrt_app'}
+        vars: {DOCKER_USER: 'www-data', DOCKER_CONTAINER: 'wrt_app'}
   cache-cli:
     cmds:
       - task: docker:exec
-        vars: {CONTAINER: 'wrt_keydb', COMMAND: "keydb-cli -a $KEYDB_CACHE_PASSWORD"}
+        vars: {DOCKER_CONTAINER: 'wrt_keydb', EXEC_COMMAND: "keydb-cli -a $KEYDB_CACHE_SECRET"}
