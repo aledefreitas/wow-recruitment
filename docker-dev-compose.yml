@@ -1,4 +1,10 @@
 services:
+  wrt_mongodb:
+    ports:
+      - 27017:27017
+  wrt_keydb:
+    ports:
+      - 6379:6379
   wrt_app:
     volumes:
       - ./:/app

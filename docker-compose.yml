@@ -16,6 +16,22 @@ networks:
         - subnet: 172.177.63.0/24
 
 services:
+  wrt_mongodb:
+    container_name: wrt_mongodb
+    image: mongo:7.0.11
+    env_file: ./.env
+    volumes:
+        - ./.docker/mongodb/mongo.conf:/etc/mongo.conf
+        - ./.docker/mongodb/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+        - wrt_mongodb_data:/data/db
+    environment:
+        - MONGO_INITDB_ROOT_USERNAME=${MONGODB_DATABASE_ROOT_USER:-root}
+        - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_DATABASE_ROOT_PASSWORD:-changeme}
+        - MONGO_INITDB_DATABASE=${MONGODB_DATABASE_DB:-wow_recruitment}
+    networks:
+      - wrt_internal_network
+
+  # WoW Recruitment KeyDB
   wrt_keydb:
     container_name: wrt_keydb
     user: "${UID:-1000}:${GID:-1000}"
@@ -23,13 +39,13 @@ services:
     # @see https://hub.docker.com/r/eqalpha/keydb
     image: 'eqalpha/keydb:x86_64_v6.3.3'
     restart: unless-stopped
-    command: ['keydb-server', '/usr/local/etc/keydb/keydb.conf', '--requirepass ${KEYDB_CACHE_SECRET:-changeme}']
+    command: ['keydb-server', '/usr/local/etc/keydb/keydb.conf', '--requirepass "${KEYDB_CACHE_SECRET:-changeme}"']
     logging:
         options:
             max-size: "20m"
             max-file: "5"
     environment:
-      - KEYDB_CACHE_SECRET="${KEYDB_CACHE_SECRET:-changeme}"
+      - KEYDB_CACHE_SECRET=${KEYDB_CACHE_SECRET:-changeme}
     ports:
       - '${KEYDB_CACHE_PORT:-6379}:6379'
     volumes:
@@ -47,6 +63,12 @@ services:
       args:
           UID: ${UID:-1000}
           GID: ${GID:-1000}
+    links:
+      - wrt_keydb
+      - wrt_mongodb
+    depends_on:
+      - wrt_keydb
+      - wrt_mongodb
     restart: unless-stopped
     env_file: ./.env
     container_name: wrt_app
