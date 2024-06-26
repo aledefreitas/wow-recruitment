@@ -22,6 +22,8 @@ tasks:
         vars: {ENV: '{{.ENV}}'}
       - task: docker:up
         vars: {ENV: '{{.ENV}}'}
+      - task: docker:exec
+        vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: 'npm ci'}
   bash:
     cmds:
       - task: docker:exec
