@@ -2,3 +2,5 @@ services:
   wrt_app:
     volumes:
       - ./:/app
+    ports:
+      - 80:80

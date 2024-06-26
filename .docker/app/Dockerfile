@@ -2,25 +2,31 @@
 
 ARG PHP_IMAGE=php:8.3-fpm-alpine
 
-## DEVELOPMENT IMAGE
-FROM ${PHP_IMAGE} AS dev
+FROM ${PHP_IMAGE} AS build
 
 INCLUDE+ ./.docker/app/.dockerfiles/nginx.Dockerfile
 INCLUDE+ ./.docker/app/.dockerfiles/app.Dockerfile
 INCLUDE+ ./.docker/app/.dockerfiles/php.Dockerfile
 INCLUDE+ ./.docker/app/.dockerfiles/cleanup.Dockerfile
 
+EXPOSE 80
+
 CMD ["/usr/bin/supervisord", "-n"];
+
+## DEVELOPMENT IMAGE
+FROM build AS dev
+
+ENV XDEBUG_ENABLED 1
+ENV OPCACHE_ENABLED 0
+
+RUN pecl install xdebug-3.3.2 \
+    && docker-php-ext-enable xdebug
 
 ## PRODUCTION IMAGE
-FROM ${PHP_IMAGE} AS prod
+FROM build AS prod
 
-INCLUDE+ ./.docker/app/.dockerfiles/nginx.Dockerfile
-INCLUDE+ ./.docker/app/.dockerfiles/app.Dockerfile
-INCLUDE+ ./.docker/app/.dockerfiles/php.Dockerfile
-INCLUDE+ ./.docker/app/.dockerfiles/cleanup.Dockerfile
-
-CMD ["/usr/bin/supervisord", "-n"];
+ENV XDEBUG_ENABLED 0
+ENV OPCACHE_ENABLED 1
 
 ## STAGING IMAGE COPIES PROD
 FROM prod AS staging
