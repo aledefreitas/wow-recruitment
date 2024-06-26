@@ -28,6 +28,8 @@
 - [Requirements](#requirements)
 - [Installation](#installation)
     - [Development](#development)
+    - [Staging](#staging)
+    - [Production](#production)
 - [Documentation](#documentation)
 - [Running Tests](#running-tests)
 
@@ -94,14 +96,27 @@ It `SHOULD` accomplish the following:
 
 # Installation
 
-### Development
 Simply run the following command in your terminal
+
+### Development
 ```sh
 $ task up-dev
 ```
 
+### Staging
+```sh
+$ task up-staging
+```
+
+### Production
+```sh
+$ task up-prod
+```
+
 # Documentation
-TBD
+You can see the [documentation here!](./docs)
+
+Please, bear in mind that this will evolve alongside the project, so it might be pretty incomplete by the time you see it :frowning:
 
 # Running Tests
 TBD
