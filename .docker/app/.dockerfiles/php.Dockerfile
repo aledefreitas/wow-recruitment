@@ -89,3 +89,7 @@ RUN cd /opt \
 
 RUN for i in 0 1 2 3; do echo -e "[upstream$i]\nlisten = /var/run/php-upstream$i.sock;\ninclude=/usr/local/etc/php-fpm.d/www-common.conf" > /usr/local/etc/php-fpm.d/www-upstream${i}.conf; echo 'Wrote php-fpm upstream ${i}'; done
 
+# Install Symfony CLI
+RUN apk add --no-cache bash
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' | ash
+RUN apk add symfony-cli
