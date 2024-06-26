@@ -1,10 +1,13 @@
 services:
+  wrt_pgbouncer:
+    ports:
+      - ${POSTGRE_DATABASE_CONNECTION_POOL_PORT:-5432}:5432
   wrt_mongodb:
     ports:
-      - 27017:27017
+      - ${MONGODB_DATABASE_PORT:-27017}:27017
   wrt_keydb:
     ports:
-      - 6379:6379
+      - ${KEYDB_CACHE_PORT:-6379}:6379
   wrt_app:
     volumes:
       - ./:/app

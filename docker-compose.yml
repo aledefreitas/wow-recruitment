@@ -14,12 +14,60 @@ networks:
     ipam:
       config:
         - subnet: 172.177.63.0/24
+  wrt_pgsql_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.177.64.0/24
 
 services:
+  # WoW Recruitment PostgreSQL
+  wrt_postgresql:
+    container_name: wrt_postgresql
+    image: postgres:16.3-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${POSTGRE_DATABASE_DB} -U ${POSTGRE_DATABASE_USER}"]
+    volumes:
+      - wrt_pgsql_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=${POSTGRE_DATABASE_USER:-wrt}
+      - POSTGRES_PASSWORD=${POSTGRE_DATABASE_PASSWORD:-changeme}
+      - POSTGRES_DB=${POSTGRE_DATABASE_DB:-wow_recruitment}
+      - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
+    networks:
+      - wrt_pgsql_network
+
+  # WoW Recruitment PostgreSQL Connection Pooling
+  wrt_pgbouncer:
+    container_name: wrt_pgbouncer
+    image: edoburu/pgbouncer:1.22.1-p0
+    restart: unless-stopped
+    depends_on:
+      wrt_postgresql:
+        condition: service_healthy
+    links:
+      - wrt_postgresql
+    environment:
+      - DB_USER=${POSTGRE_DATABASE_USER:-wrt}
+      - DB_PASSWORD=${POSTGRE_DATABASE_PASSWORD:-changeme}
+      - DB_HOST=${POSTGRE_DATABASE_HOST:-wrt_postgresql}
+      - DB_PORT=${POSTGRE_DATABASE_PORT:-5432}
+      - AUTH_TYPE=scram-sha-256
+    networks:
+      - wrt_internal_network
+      - wrt_pgsql_network
+
+  # WoW Recruitment MongoDB
   wrt_mongodb:
     container_name: wrt_mongodb
     image: mongo:7.0.11
     env_file: ./.env
+    restart: unless-stopped
+    healthcheck:
+      test: exit $$? | echo 'db.runCommand("ping").ok | mongosh localhost:$${MONGODB_DATABASE_PORT} --quiet'
+      interval: 1s
+      start_period: 10s
     volumes:
         - ./.docker/mongodb/mongo.conf:/etc/mongo.conf
         - ./.docker/mongodb/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
@@ -40,6 +88,10 @@ services:
     image: 'eqalpha/keydb:x86_64_v6.3.3'
     restart: unless-stopped
     command: ['keydb-server', '/usr/local/etc/keydb/keydb.conf', '--requirepass "${KEYDB_CACHE_SECRET:-changeme}"']
+    healthcheck:
+      test: exit $$? | keydb-cli -a $${KEYDB_CACHE_SECRET} --raw incr ping
+      interval: 1s
+      start_interval: 5s
     logging:
         options:
             max-size: "20m"
@@ -66,9 +118,14 @@ services:
     links:
       - wrt_keydb
       - wrt_mongodb
+      - wrt_pgbouncer
     depends_on:
-      - wrt_keydb
-      - wrt_mongodb
+      wrt_keydb:
+        condition: service_healthy
+      wrt_mongodb:
+        condition: service_healthy
+      wrt_pgbouncer:
+        condition: service_started
     restart: unless-stopped
     env_file: ./.env
     container_name: wrt_app
