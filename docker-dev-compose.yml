@@ -2,5 +2,6 @@ services:
   wrt_app:
     volumes:
       - ./:/app
+      - ./.docker/app/php/config/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
     ports:
       - 80:80

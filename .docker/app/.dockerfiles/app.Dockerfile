@@ -1,5 +1,13 @@
 RUN apk update
 
+ARG UID
+ARG GID
+
+RUN apk add shadow \
+    && groupmod --gid $GID www-data \
+    && usermod --uid $UID --gid $GID www-data \
+    && apk del shadow
+
 ENV APP_DEPS \
         libxml2-dev \
         libpng-dev \

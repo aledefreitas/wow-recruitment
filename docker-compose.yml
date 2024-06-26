@@ -22,7 +22,16 @@ services:
       context: .
       dockerfile: ./.docker/app/Dockerfile
       target: ${ENV:-prod}
+      args:
+          UID: ${UID:-1000}
+          GID: ${GID:-1000}
     env_file: ./.env
     container_name: wrt_app
     volumes:
+      - ./.docker/app/supervisor/supervisord.conf:/etc/supervisord.conf
+      - ./.docker/app/supervisor/conf.d:/etc/supervisor/conf.d
+      - ./.docker/app/php/fpm/www-common.conf:/usr/local/etc/php-fpm.d/www-common.conf
+      - ./.docker/app/php/config/php.ini:/usr/local/etc/php/php.ini
+      - ./.docker/app/php/config/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+      - ./logs:/app/logs
       - wrt_unix_sockets:/var/run/sockets/

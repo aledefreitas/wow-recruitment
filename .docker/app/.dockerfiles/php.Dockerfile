@@ -14,7 +14,8 @@ ENV PHP_EXTENSION_DEPS \
         rabbitmq-c-dev \
         libmemcached-dev \
         imagemagick  \
-        imagemagick-dev
+        imagemagick-dev \
+        librdkafka
 
 RUN apk add ${PHP_EXTENSION_DEPS}
 
@@ -54,6 +55,10 @@ RUN pecl install memcached-3.2.0 \
 RUN pecl install redis-6.0.2 \
     && docker-php-ext-enable redis
 
+RUN apk add librdkafka-dev
+RUN pecl install rdkafka-6.0.3 \
+    && docker-php-ext-enable rdkafka
+
 ARG IMAGICK_VERSION=3.7.0
 
 # Imagick is installed from the archive because regular installation fails
@@ -81,3 +86,6 @@ RUN cd /opt \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer --2 \
     # Remove installer files.
     && rm /opt/composer-setup.php /opt/composer-setup.sha384sum
+
+RUN for i in 0 1 2 3; do echo -e "[upstream$i]\nlisten = /var/run/php-upstream$i.sock;\ninclude=/usr/local/etc/php-fpm.d/www-common.conf" > /usr/local/etc/php-fpm.d/www-upstream${i}.conf; echo 'Wrote php-fpm upstream ${i}'; done
+

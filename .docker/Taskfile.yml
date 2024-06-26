@@ -13,7 +13,7 @@ tasks:
   compose:
     internal: true
     cmds:
-      - DEV_COMPOSE=$([ "$ENV" == "dev" ] && echo "-f docker-dev-compose.yml" || echo ""); echo $DEV_COMPOSE; echo {{.ENV}}; docker compose -f docker-compose.yml $DEV_COMPOSE {{.COMMAND}}
+      - DEV_COMPOSE=$([ "$ENV" == "dev" ] && echo "-f docker-dev-compose.yml" || echo ""); docker compose -f docker-compose.yml $DEV_COMPOSE {{.COMMAND}}
   build:
     internal: true
     cmds:
