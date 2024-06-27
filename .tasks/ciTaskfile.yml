@@ -8,3 +8,11 @@ tasks:
     cmds:
       - task: docker:exec
         vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: 'npm run commitlint {{.CLI_ARGS}}'}
+  phpstan:
+    cmds:
+      - task: docker:exec
+        vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: './vendor/bin/phpstan --no-progress {{.CLI_ARGS}}'}
+  psalm:
+    cmds:
+      - task: docker:exec
+        vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: './vendor/bin/psalm --no-cache --show-info=true'}

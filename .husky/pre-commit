@@ -1,0 +1,1 @@
+task ci:phpstan -- analyze $(git diff --name-only --cached)
