@@ -25,7 +25,12 @@
     - [Debugging](#debugging)
     - [CI/CD](#cicd)
     - [Workflow](#workflow)
+    - [Development Workflow Environment](#development-workflow-environment)
+- [Requirements](#requirements)
 - [Installation](#installation)
+    - [Development](#development)
+    - [Staging](#staging)
+    - [Production](#production)
 - [Documentation](#documentation)
 - [Running Tests](#running-tests)
 
@@ -47,50 +52,76 @@ It `SHOULD` accomplish the following:
 > [!IMPORTANT]
 > These are subject to change throughout the development of this project
 ### Databases
-- [ ] [MongoDB](https://www.mongodb.com/docs/)
-- [ ] [PostgreSQL](https://www.postgresql.org/docs/)
-- [ ] [ElasticSearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
+- [x] [MongoDB](https://www.mongodb.com/docs/)
+- [x] [PostgreSQL](https://www.postgresql.org/docs/)
+- [x] [ElasticSearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 
 ### In-Memory Store
-- [ ] [KeyDB](https://docs.keydb.dev/)
+- [x] [KeyDB](https://docs.keydb.dev/)
 
 ### Language
-- [ ] [PHP 8.3](https://www.php.net/releases/8.3/en.php)
+- [x] [PHP 8.3](https://www.php.net/releases/8.3/en.php)
 
 ### Framework
-- [ ] [Symfony @ latest](https://symfony.com/doc/current/index.html)
+- [x] [Symfony @ latest](https://symfony.com/doc/current/index.html)
 
 ### Standards Compliance
 - [ ] [PHP CS Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
 - [ ] [PHPStan](https://phpstan.org/)
 - [ ] [PHP Mess Detector](https://phpmd.org/)
-- [ ] [commitlint](https://commitlint.js.org/)
+- [x] [commitlint](https://commitlint.js.org/)
 
 ### Message Broker
 - [ ] [Apache Kafka](https://kafka.apache.org/documentation/)
 
 ### Automation
-- [ ] [Taskfile](https://taskfile.dev/)
-- [ ] [Husky](https://typicode.github.io/husky/)
+- [x] [Taskfile](https://taskfile.dev/)
+- [x] [Husky](https://typicode.github.io/husky/)
 - [ ] ~~[PKL](https://pkl-lang.org/index.html)~~
 (_can't justify this not reinventing the wheel on this project_)
-- [ ] [Docker](https://docs.docker.com/)
+- [x] [Docker](https://docs.docker.com/)
 
 ### Debugging
-- [ ] [XDebug](https://xdebug.org/)
+- [x] [XDebug](https://xdebug.org/)
 
 ### CI/CD
-- [ ] [Secret Vault (Infiscal)](https://infisical.com/)
+- [x] [Secret Vault (Infisical)](https://infisical.com/)
 - [ ] [Github Actions](https://docs.github.com/en/actions)
 
 ### Workflow
-- [ ] Gitflow
+- [x] Gitflow
+
+### Development Workflow Environment
+- [x] Kibana
+- [x] Mongo Express
+
+# Requirements
+- [Taskfile](https://taskfile.dev/installation/)
+- [Docker](https://docs.docker.com/get-docker/) installed with [Compose V2](https://docs.docker.com/compose/install/)
 
 # Installation
-TBD
+
+Simply run the following command in your terminal
+
+### Development
+```sh
+$ task up-dev
+```
+
+### Staging
+```sh
+$ task up-staging
+```
+
+### Production
+```sh
+$ task up-prod
+```
 
 # Documentation
-TBD
+You can see the [documentation here!](./docs)
+
+Please, bear in mind that this will evolve alongside the project, so it might be pretty incomplete by the time you see it :frowning:
 
 # Running Tests
 TBD

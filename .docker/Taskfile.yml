@@ -1,0 +1,38 @@
+version: '3'
+
+vars:
+  ENV: '{{default "dev" .ENV}}'
+env:
+  ENV: '{{.ENV}}'
+  UID:
+    sh: 'id -u'
+  GID:
+    sh: 'id -g'
+
+tasks:
+  compose:
+    internal: true
+    cmds:
+      - DEV_COMPOSE=$([ "$ENV" == "dev" ] && echo "-f docker-dev-compose.yml" || echo ""); docker compose -f docker-compose.yml $DEV_COMPOSE {{.COMMAND}}
+  build:
+    internal: true
+    cmds:
+      - task: compose
+        vars: {COMMAND: build, ENV: '{{.ENV}}'}
+  up:
+    internal: true
+    cmds:
+      - task: compose
+        vars: {COMMAND: 'up -d --remove-orphans', ENV: '{{.ENV}}'}
+  down:
+    cmds:
+      - task: compose
+        vars: {COMMAND: 'down', ENV: '{{.ENV}}'}
+  exec:
+    internal: true
+    vars:
+      DOCKER_USER: '{{default "root" .DOCKER_USER}}'
+      DOCKER_CONTAINER: '{{default "app" .DOCKER_CONTAINER}}'
+      EXEC_COMMAND: '{{default "/bin/sh" .EXEC_COMMAND}}'
+    cmds:
+      - docker compose exec -u {{.DOCKER_USER}} {{.DOCKER_CONTAINER}} {{.EXEC_COMMAND}}

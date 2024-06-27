@@ -1,0 +1,10 @@
+version: '3'
+
+includes:
+  docker: ../.docker
+
+tasks:
+  commitlint:
+    cmds:
+      - task: docker:exec
+        vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: 'npm run commitlint {{.CLI_ARGS}}'}

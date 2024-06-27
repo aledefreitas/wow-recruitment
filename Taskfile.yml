@@ -1,0 +1,55 @@
+version: '3'
+
+dotenv: ['.env', '{{.ENV}}/.env', '{{.HOME}}/.env']
+env:
+  ENVIRONMENT: '{{.ENV | default "dev"}}'
+
+includes:
+  docker: ./.docker
+  secrets: ./.tasks/secretsTaskfile.yml
+  ci: ./.tasks/ciTaskfile.yml
+
+tasks:
+  up-*:
+    vars:
+      ENV: '{{index .MATCH 0}}'
+    preconditions:
+      - sh: '[[ "$ENVIRONMENT" == "dev" || "$ENVIRONMENT" == "staging" || "$ENVIRONMENT" == "prod" ]]'
+        msg: 'Valid commands for up are: up-dev, up-staging, up-prod'
+    cmds:
+      - task: secrets:generate-{{.ENV}}-dotenv
+      - task: docker:build
+        vars: {ENV: '{{.ENV}}'}
+      - task: docker:up
+        vars: {ENV: '{{.ENV}}'}
+      - task: setup-{{.ENV}}
+        vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: 'npm ci'}
+
+  setup-dev:
+    internal: true
+    cmds:
+      - task: docker:exec
+        vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: 'npm ci'}
+      - task: docker:exec
+        vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: 'composer install'}
+
+  setup-staging:
+    internal: true
+    cmds:
+      - task: setup-prod
+
+  setup-prod:
+    internal: true
+    cmds:
+      - task: docker:exec
+        vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: 'composer install --no-dev -o -a'}
+
+  bash:
+    cmds:
+      - task: docker:exec
+        vars: {DOCKER_USER: 'www-data', DOCKER_CONTAINER: 'wrt_app'}
+
+  cache-cli:
+    cmds:
+      - task: docker:exec
+        vars: {DOCKER_CONTAINER: 'wrt_keydb', EXEC_COMMAND: "keydb-cli -a $KEYDB_CACHE_SECRET"}
