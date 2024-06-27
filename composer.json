@@ -1,6 +1,12 @@
 {
+    "name": "aledefreitas/wow-recruitment",
     "type": "project",
-    "license": "proprietary",
+    "license": "APACHE2.0",
+    "authors": [
+        {
+            "name": "Alexandre Caetano"
+        }
+    ],
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
