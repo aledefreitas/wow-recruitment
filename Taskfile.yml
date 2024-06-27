@@ -22,12 +22,33 @@ tasks:
         vars: {ENV: '{{.ENV}}'}
       - task: docker:up
         vars: {ENV: '{{.ENV}}'}
+      - task: setup-{{.ENV}}
+        vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: 'npm ci'}
+
+  setup-dev:
+    internal: true
+    cmds:
       - task: docker:exec
         vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: 'npm ci'}
+      - task: docker:exec
+        vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: 'composer install'}
+
+  setup-staging:
+    internal: true
+    cmds:
+      - task: setup-prod
+
+  setup-prod:
+    internal: true
+    cmds:
+      - task: docker:exec
+        vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: 'composer install --no-dev -o -a'}
+
   bash:
     cmds:
       - task: docker:exec
         vars: {DOCKER_USER: 'www-data', DOCKER_CONTAINER: 'wrt_app'}
+
   cache-cli:
     cmds:
       - task: docker:exec

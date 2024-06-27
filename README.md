@@ -25,6 +25,7 @@
     - [Debugging](#debugging)
     - [CI/CD](#cicd)
     - [Workflow](#workflow)
+    - [Development Workflow Environment](#development-workflow-environment)
 - [Requirements](#requirements)
 - [Installation](#installation)
     - [Development](#development)
@@ -53,7 +54,7 @@ It `SHOULD` accomplish the following:
 ### Databases
 - [x] [MongoDB](https://www.mongodb.com/docs/)
 - [x] [PostgreSQL](https://www.postgresql.org/docs/)
-- [ ] [ElasticSearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
+- [x] [ElasticSearch](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 
 ### In-Memory Store
 - [x] [KeyDB](https://docs.keydb.dev/)
@@ -89,6 +90,10 @@ It `SHOULD` accomplish the following:
 
 ### Workflow
 - [x] Gitflow
+
+### Development Workflow Environment
+- [x] Kibana
+- [x] Mongo Express
 
 # Requirements
 - [Taskfile](https://taskfile.dev/installation/)
