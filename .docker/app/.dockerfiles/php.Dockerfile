@@ -75,9 +75,11 @@ RUN curl -L -o /tmp/imagick.tar.gz https://github.com/Imagick/imagick/archive/re
 # Install Composer.
 ENV PATH=$PATH:/root/composer/vendor/bin \
     COMPOSER_ALLOW_SUPERUSER=1 \
-    COMPOSER_HOME=/root/composer
+    COMPOSER_HOME=/home/www-root/.composer
 RUN cd /opt \
     && apk add coreutils libevent \
+    && mkdir -p $COMPOSER_HOME \
+    && chown -R www-data:www-data $COMPOSER_HOME \
     # Download installer and check for its integrity.
     && curl -sSL https://getcomposer.org/installer > composer-setup.php \
     && curl -sSL https://composer.github.io/installer.sha384sum > composer-setup.sha384sum \
@@ -91,5 +93,5 @@ RUN for i in 0 1 2 3; do echo -e "[upstream$i]\nlisten = /var/run/php-upstream$i
 
 # Install Symfony CLI
 RUN apk add --no-cache bash
-RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' | ash
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.alpine.sh' | /bin/sh
 RUN apk add symfony-cli
