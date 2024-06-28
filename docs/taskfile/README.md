@@ -25,6 +25,9 @@ The goal with this documentation is to keep an organized view of all current tas
     - [`secrets:generate-*-dotenv`](#secretsgenerate--dotenv)
   - [CI Taskfile (ci:\*)](#ci-taskfile-ci)
     - [`ci:commitlint`](#cicommitlint)
+    - [`ci:phpcs`](#ciphpcs)
+    - [`ci:phpstan`](#ciphpstan)
+    - [`ci:psalm`](#cipsalm)
 
 # Tasks
 
@@ -150,4 +153,21 @@ $ task generate-<env>-dotenv
 Runs commitlint
 ```sh
 $ task ci:commitlint
+```
+### `ci:phpcs`
+Runs `phpcs` inside the container with any cli args passed
+```sh
+$ task ci:phpcs -- CLI_ARGS=*
+```
+
+### `ci:phpstan`
+Runs `phpstan` inside the container with any cli args passed
+```sh
+$ task ci:phpstan -- CLI_ARGS=*
+```
+
+### `ci:psalm`
+Runs `psalm` inside the container against all application code
+```sh
+$ task ci:psalm
 ```
