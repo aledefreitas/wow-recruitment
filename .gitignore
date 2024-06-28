@@ -78,3 +78,4 @@ supervisord.pid
 ###> phpstan/phpstan ###
 phpstan.neon
 ###< phpstan/phpstan ###
+.phpcs-cache

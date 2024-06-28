@@ -2,18 +2,22 @@
 
 namespace App\Controller\Api\V1;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
- * Version Controller
+ * Controller for API version
  */
-#[Route('/api/v1')]
-final class VersionController extends AbstractController
+#[Route('/api/v1/version', name: 'api_version', methods: ['GET'])]
+final class VersionController
 {
-    #[Route('/version')]
-    public function index(): JsonResponse
+    /**
+     * Returns the current version of our API
+     *
+     * @return JsonResponse
+     */
+    public function __invoke(Request $request): JsonResponse
     {
         return new JsonResponse(
             [
