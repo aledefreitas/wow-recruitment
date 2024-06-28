@@ -89,7 +89,12 @@ RUN cd /opt \
     # Remove installer files.
     && rm /opt/composer-setup.php /opt/composer-setup.sha384sum
 
-RUN for i in 0 1 2 3; do echo -e "[upstream$i]\nlisten = /var/run/php-upstream$i.sock;\ninclude=/usr/local/etc/php-fpm.d/www-common.conf" > /usr/local/etc/php-fpm.d/www-upstream${i}.conf; echo 'Wrote php-fpm upstream ${i}'; done
+RUN for i in 0 1 2 3; do echo -e "[upstream$i]\nlisten = /var/run/php-upstream$i.sock;\ninclude=/usr/local/etc/php-fpm.d/www-common.conf" > /usr/local/etc/php-fpm.d/www-upstream${i}.conf; done
+
+RUN NGINX_PHP_FPM_CONF="/etc/nginx/php-fpm-upstream.conf"; \
+    echo -e "upstream php_fpm_upstream {" > $NGINX_PHP_FPM_CONF; \
+    for i in 0 1 2 3; do echo -e "server  unix:/var/run/php-upstream${i}.sock max_fails=3 fail_timeout=30;" >> $NGINX_PHP_FPM_CONF; done; \
+    echo -e "}" >> $NGINX_PHP_FPM_CONF
 
 # Install Symfony CLI
 RUN apk add --no-cache bash

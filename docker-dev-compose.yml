@@ -17,11 +17,13 @@ services:
     ports:
       - ${KEYDB_CACHE_PORT:-6379}:6379
   wrt_app:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./:/app
       - ./.docker/app/php/config/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
     ports:
-      - 80:80
+      - 80:8080
   # Add extra services for dev-only
   # Mongo Express
   wrt_mongo_express:
@@ -56,7 +58,7 @@ services:
       - ./.docker/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
       - wrt_kibana_data:/usr/share/kibana/data
     environment:
-      - 'ELASTICSEARCH_URL=http://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}'
+      - "ELASTICSEARCH_URL=http://${ELASTICSEARCH_HOST}:${ELASTICSEARCH_PORT}"
       - XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY=OYVOul44mbmVYa2ZvxBEVoXffawn6XbG
       - xpack.security.enabled=false
     networks:

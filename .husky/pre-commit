@@ -1,0 +1,4 @@
+#!/bin/sh
+STAGED=$(git diff --name-only --cached)
+task ci:phpcs -- --no-colors $STAGED
+task ci:phpstan -- analyze $STAGED

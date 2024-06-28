@@ -1,0 +1,12 @@
+{
+    "phpsab.docker.dockerEnabled": true,
+    "phpsab.docker.dockerContainer": "wrt_app",
+    "phpsab.docker.dockerWorkspaceRoot": "/app",
+    "phpsab.docker.executablePathCS": "/app/vendor/squizlabs/php_codesniffer/bin/phpcs",
+    "phpsab.docker.dockerExecutablePathCBF": "/app/vendor/squizlabs/php_codesniffer/bin/phpcbf",
+    "phpsab.docker.snifferMode": "onType",
+    "editor.formatOnSave": true,
+    "[php]": {
+        "editor.defaultFormatter": "mtbdata.vscode-phpsab-docker"
+    }
+}

@@ -66,9 +66,11 @@ It `SHOULD` accomplish the following:
 - [x] [Symfony @ latest](https://symfony.com/doc/current/index.html)
 
 ### Standards Compliance
-- [ ] [PHP CS Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
-- [ ] [PHPStan](https://phpstan.org/)
-- [ ] [PHP Mess Detector](https://phpmd.org/)
+- [x] [PHP CS Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
+- [x] [PHPStan](https://phpstan.org/)
+- [ ] ~~[PHP Mess Detector](https://phpmd.org/)~~
+(_will be using psalm instead_)
+- [x] [psalm](https://psalm.dev/)
 - [x] [commitlint](https://commitlint.js.org/)
 
 ### Message Broker

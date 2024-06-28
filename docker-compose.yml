@@ -27,7 +27,11 @@ services:
     container_name: wrt_elasticsearch
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", 'curl --fail http://localhost:$${ES_PORT}/_cluster/health || exit 1']
+      test:
+        [
+          "CMD-SHELL",
+          "curl --fail http://localhost:$${ES_PORT}/_cluster/health || exit 1",
+        ]
       interval: 5s
       start_period: 10s
       retries: 5
@@ -48,7 +52,11 @@ services:
     image: postgres:16.3-alpine
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -d ${POSTGRE_DATABASE_DB} -U ${POSTGRE_DATABASE_USER}"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -d ${POSTGRE_DATABASE_DB} -U ${POSTGRE_DATABASE_USER}",
+        ]
     volumes:
       - wrt_pgsql_data:/var/lib/postgresql/data/
     environment:
@@ -90,13 +98,13 @@ services:
       interval: 1s
       start_period: 10s
     volumes:
-        - ./.docker/mongodb/mongo.conf:/etc/mongo.conf
-        - ./.docker/mongodb/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
-        - wrt_mongodb_data:/data/db
+      - ./.docker/mongodb/mongo.conf:/etc/mongo.conf
+      - ./.docker/mongodb/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+      - wrt_mongodb_data:/data/db
     environment:
-        - MONGO_INITDB_ROOT_USERNAME=${MONGODB_DATABASE_ROOT_USER:-root}
-        - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_DATABASE_ROOT_PASSWORD:-changeme}
-        - MONGO_INITDB_DATABASE=${MONGODB_DATABASE_DB:-wow_recruitment}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_DATABASE_ROOT_USER:-root}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_DATABASE_ROOT_PASSWORD:-changeme}
+      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE_DB:-wow_recruitment}
     networks:
       - wrt_internal_network
 
@@ -106,24 +114,29 @@ services:
     user: "${UID:-1000}:${GID:-1000}"
     # alpine docker images are currently experimental, and KeyDB still requires a bit of work to fully support Alpine Builds
     # @see https://hub.docker.com/r/eqalpha/keydb
-    image: 'eqalpha/keydb:x86_64_v6.3.3'
+    image: "eqalpha/keydb:x86_64_v6.3.3"
     restart: unless-stopped
-    command: ['keydb-server', '/usr/local/etc/keydb/keydb.conf', '--requirepass "${KEYDB_CACHE_SECRET:-changeme}"']
+    command:
+      [
+        "keydb-server",
+        "/usr/local/etc/keydb/keydb.conf",
+        '--requirepass "${KEYDB_CACHE_SECRET:-changeme}"',
+      ]
     healthcheck:
       test: exit $$? | keydb-cli -a $${KEYDB_CACHE_SECRET} --raw incr ping
       interval: 1s
       start_interval: 5s
     logging:
-        options:
-            max-size: "20m"
-            max-file: "5"
+      options:
+        max-size: "20m"
+        max-file: "5"
     environment:
       - KEYDB_CACHE_SECRET=${KEYDB_CACHE_SECRET:-changeme}
     ports:
-      - '${KEYDB_CACHE_PORT:-6379}:6379'
+      - "${KEYDB_CACHE_PORT:-6379}:6379"
     volumes:
-      - './.docker/keydb/keydb.conf:/usr/local/etc/keydb/keydb.conf'
-      - 'wrt_unix_sockets:/tmp/'
+      - "./.docker/keydb/keydb.conf:/usr/local/etc/keydb/keydb.conf"
+      - "wrt_unix_sockets:/tmp/"
     networks:
       - wrt_internal_network
 
@@ -134,8 +147,8 @@ services:
       dockerfile: ./.docker/app/Dockerfile
       target: ${ENV:-prod}
       args:
-          UID: ${UID:-1000}
-          GID: ${GID:-1000}
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
     links:
       - wrt_keydb
       - wrt_mongodb
@@ -154,6 +167,8 @@ services:
     env_file: ./.env
     container_name: wrt_app
     volumes:
+      - ./.docker/app/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./.docker/app/nginx/conf.d:/etc/nginx/conf.d
       - ./.docker/app/supervisor/supervisord.conf:/etc/supervisord.conf
       - ./.docker/app/supervisor/conf.d:/etc/supervisor/conf.d
       - ./.docker/app/php/fpm/www-common.conf:/usr/local/etc/php-fpm.d/www-common.conf
