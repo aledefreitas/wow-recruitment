@@ -1,4 +1,7 @@
 # WoW Recruitment BackEnd
+> [!IMPORTANT]
+> This project uses docker images from [aledefreitas/php-nginx-docker-dev](https://github.com/aledefreitas/php-nginx-docker-dev)! Those were originated from this repository, and "refactored" into its own repository for better maintainability.
+
  An (purposefully) over-engineered piece of code intended for applying technologies and patterns in order add to my tech stack skill set while attempting to solve problems I came across in my hobby!
 
  Since I've been playing World of Warcraft as a hobby for quite some time (more than I'm willing to admit :laughing:) and I'm a guild _- and raid -_ leader, I have the constant need to recruit new players to fill in our team's roster. While there are countless tools to manage guild rosters, I decided it would be a great project to develop as a way to train my skills and explore technologies I would not be able to use in any of the projects I'm currently working on, while applying those to a real world problem.
@@ -49,7 +52,7 @@ It `SHOULD` accomplish the following:
 - Have tests in its CI Pipeline
 
 # Tech Stack Wishlist
-> [!IMPORTANT]
+> [!CAUTION]
 > These are subject to change throughout the development of this project
 ### Databases
 - [x] [MongoDB](https://www.mongodb.com/docs/)

@@ -1,4 +1,4 @@
 #!/bin/sh
-STAGED=$(git diff --name-only --cached)
+STAGED=$(git diff --name-only --cached --diff-filter=ACMRTU)
 task ci:phpcs -- --no-colors $STAGED
 task ci:phpstan -- analyze $STAGED
