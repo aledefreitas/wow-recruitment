@@ -22,8 +22,11 @@
     },
     "require-dev": {
         "phpstan/phpstan": "^1.11",
+        "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.10",
-        "vimeo/psalm": "^5.25"
+        "symfony/browser-kit": "7.1.*",
+        "symfony/css-selector": "7.1.*",
+        "symfony/phpunit-bridge": "^7.1"
     },
     "config": {
         "allow-plugins": {
