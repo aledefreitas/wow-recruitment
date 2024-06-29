@@ -73,7 +73,8 @@ It `SHOULD` accomplish the following:
 - [x] [PHPStan](https://phpstan.org/)
 - [ ] ~~[PHP Mess Detector](https://phpmd.org/)~~
 (_will be using psalm instead_)
-- [x] [psalm](https://psalm.dev/)
+- [x] ~~[psalm](https://psalm.dev/)~~
+(_had to be removed, current version is not compatible with Symfony Testing 7.1 dependencies. Should implement this in CI later._)
 - [x] [commitlint](https://commitlint.js.org/)
 
 ### Message Broker

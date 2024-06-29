@@ -8,8 +8,15 @@
     <arg name="colors"/>
     <arg name="extensions" value="php"/>
 
-    <rule ref="PSR12"/>
-    <rule ref="Zend"/>
+    <rule ref="PSR12">
+        <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman" />
+        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
+    </rule>
+    <rule ref="Zend">
+        <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman" />
+        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
+        <exclude name="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore" />
+    </rule>
 
     <file>bin/</file>
     <file>config/</file>
