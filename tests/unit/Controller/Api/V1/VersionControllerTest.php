@@ -5,27 +5,18 @@ namespace App\Tests\Controller\Api\V1;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 final class VersionControllerTest extends WebTestCase
 {
-    /**
-     * @var ContainerInterface
-     */
     protected ContainerInterface $container;
 
-    /**
-     * @var KernelBrowser
-     */
     protected KernelBrowser $client;
 
     /**
-     * Set-up for this test
-     *
-     * @return void
+     * Set-up for this test.
      */
     protected function setUp(): void
     {
@@ -35,9 +26,7 @@ final class VersionControllerTest extends WebTestCase
     }
 
     /**
-     * Tests if `/api/v1/version` refuses POST requests
-     *
-     * @return void
+     * Tests if `/api/v1/version` refuses POST requests.
      */
     public function testItRefusesPostRequests(): void
     {
@@ -46,9 +35,7 @@ final class VersionControllerTest extends WebTestCase
     }
 
     /**
-     * Tests if `/api/v1/version` refuses PATCH requests
-     *
-     * @return void
+     * Tests if `/api/v1/version` refuses PATCH requests.
      */
     public function testItRefusesPatchRequests(): void
     {
@@ -57,9 +44,7 @@ final class VersionControllerTest extends WebTestCase
     }
 
     /**
-     * Tests if `/api/v1/version` refuses DELETE requests
-     *
-     * @return void
+     * Tests if `/api/v1/version` refuses DELETE requests.
      */
     public function testItRefusesDeleteRequests(): void
     {
@@ -68,9 +53,7 @@ final class VersionControllerTest extends WebTestCase
     }
 
     /**
-     * Tests if `/api/v1/version` refuses PUT requests
-     *
-     * @return void
+     * Tests if `/api/v1/version` refuses PUT requests.
      */
     public function testItRefusesPutRequests(): void
     {
@@ -79,9 +62,7 @@ final class VersionControllerTest extends WebTestCase
     }
 
     /**
-     * Tests if `/api/v1/version` returns a Json as response
-     *
-     * @return void
+     * Tests if `/api/v1/version` returns a Json as response.
      */
     public function testItReturnsAJsonFormat(): void
     {
@@ -93,9 +74,7 @@ final class VersionControllerTest extends WebTestCase
 
     /**
      * Tests if the api version from endpoint /api/v1/version matches configured
-     * version in `app.version`
-     *
-     * @return void
+     * version in `app.version`.
      */
     public function testApiVersionMatchesWithApplicationVersion(): void
     {
