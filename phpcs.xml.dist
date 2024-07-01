@@ -13,6 +13,8 @@
         <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
     </rule>
 
+    <rule ref="ruleset.xml" />
+
     <file>bin/</file>
     <file>config/</file>
     <file>public/</file>
