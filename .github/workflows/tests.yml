@@ -49,6 +49,9 @@ jobs:
             - name: "Install dependencies"
               run: composer install --ansi --no-interaction --no-progress --no-scripts
 
+            - name: "Install PHPUnit GitHub Actions Printer"
+              run: composer require --dev mheap/phpunit-github-actions-printer
+
             - name: Install PHPUnit
               id: install
               run: vendor/bin/simple-phpunit install
@@ -57,4 +60,4 @@ jobs:
               run: vendor/bin/simple-phpunit --version
 
             - name: "Run tests"
-              run: vendor/bin/simple-phpunit -v
+              run: vendor/bin/simple-phpunit --printer mheap\\GithubActionsReporter\\Printer -v
