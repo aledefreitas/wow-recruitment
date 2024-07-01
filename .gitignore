@@ -79,3 +79,14 @@ supervisord.pid
 phpstan.neon
 ###< phpstan/phpstan ###
 .phpcs-cache
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+.code.coverage.html
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
