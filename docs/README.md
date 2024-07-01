@@ -1,2 +1,3 @@
 # Documentation
-- ### [Taskfile](./taskfile)
+- ### [Taskfile](./taskfile/)
+- ### [CI Pipeline](./ci-pipeline/)

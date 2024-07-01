@@ -92,7 +92,7 @@ It `SHOULD` accomplish the following:
 
 ### CI/CD
 - [x] [Secret Vault (Infisical)](https://infisical.com/)
-- [ ] [Github Actions](https://docs.github.com/en/actions)
+- [x] [Github Actions](https://docs.github.com/en/actions)
 
 ### Workflow
 - [x] Gitflow
