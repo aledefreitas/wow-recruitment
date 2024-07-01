@@ -7,21 +7,19 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
- * Controller for API version
+ * Controller for API version.
  */
 #[Route('/api/v1/version', name: 'api_version', methods: ['GET'])]
 final class VersionController extends AbstractController
 {
     /**
-     * Returns the current version of our API
-     *
-     * @return JsonResponse
+     * Returns the current version of our API.
      */
     public function __invoke(): JsonResponse
     {
         return new JsonResponse(
             [
-                'version' => $this->getParameter('app.version')
+                'version' => $this->getParameter('app.version'),
             ]
         );
     }

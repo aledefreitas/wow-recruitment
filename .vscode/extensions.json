@@ -8,6 +8,7 @@
 		"xdebug.php-debug",
 		"neilbrayfield.php-docblocker",
 		"mtbdata.vscode-phpsab-docker",
+    "junstyle.php-cs-fixer"
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [

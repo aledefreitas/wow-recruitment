@@ -1,0 +1,66 @@
+name: "Testing"
+
+on:
+    pull_request:
+
+env:
+    fail-fast: true
+    SYMFONY_PHPUNIT_DIR: "$HOME/symfony-bridge/.phpunit"
+    SYMFONY_DEPRECATIONS_HELPER: "max[indirect]=52"
+
+permissions:
+    contents: read
+    pull-requests: write
+
+jobs:
+    tests:
+        name: "Run automated tests"
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                php-version: ["8.3"]
+
+        steps:
+            - name: "Checkout code"
+              uses: actions/checkout@v4
+
+            - name: "Install PHP with extensions"
+              uses: shivammathur/setup-php@v2
+              with:
+                  coverage: "none"
+                  extensions: "intl, mbstring, pdo_sqlite, zip"
+                  php-version: ${{ matrix.php-version }}
+                  tools: "composer:v2, cs2pr"
+
+            - name: "Add PHPUnit matcher"
+              run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+            - name: "Copy .env.example"
+              run: if [ ! -f ./.env ]; then cp ./.env.example ./.env; fi
+
+            - name: "Set composer cache directory"
+              id: composer-cache
+              run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+            - name: "Cache composer"
+              uses: actions/cache@v4
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+                  restore-keys: ${{ runner.os }}-composer-
+
+            - name: "Install dependencies"
+              run: composer install --ansi --no-interaction --no-progress --no-scripts
+
+            - name: "Install PHPUnit GitHub Actions Printer"
+              run: composer require --dev mheap/phpunit-github-actions-printer
+
+            - name: Install PHPUnit
+              id: install
+              run: vendor/bin/simple-phpunit install
+
+            - name: "PHPUnit version"
+              run: vendor/bin/simple-phpunit --version
+
+            - name: "Run tests"
+              run: vendor/bin/simple-phpunit --printer mheap\\GithubActionsReporter\\Printer -v

@@ -12,11 +12,8 @@
         <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman" />
         <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
     </rule>
-    <rule ref="Zend">
-        <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman" />
-        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
-        <exclude name="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore" />
-    </rule>
+
+    <rule ref="ruleset.xml" />
 
     <file>bin/</file>
     <file>config/</file>

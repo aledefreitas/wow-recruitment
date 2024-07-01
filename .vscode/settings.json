@@ -6,7 +6,8 @@
     "phpsab.docker.dockerExecutablePathCBF": "/app/vendor/squizlabs/php_codesniffer/bin/phpcbf",
     "phpsab.docker.snifferMode": "onType",
     "editor.formatOnSave": true,
+    "php-cs-fixer.executablePath": "${workspaceFolder}/vendor/bin/php-cs-fixer",
     "[php]": {
-        "editor.defaultFormatter": "mtbdata.vscode-phpsab-docker"
+        "editor.defaultFormatter": "junstyle.php-cs-fixer"
     }
 }

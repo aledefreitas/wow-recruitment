@@ -45,9 +45,13 @@ tasks:
         vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: 'composer install --no-dev -o -a'}
 
   bash:
+    vars: {
+        DOCKER_USER: '{{default "www-data" .DOCKER_USER}}',
+        DOCKER_CONTAINER: '{{default "wrt_app" .DOCKER_CONTAINER}}'
+    }
     cmds:
       - task: docker:exec
-        vars: {DOCKER_USER: 'www-data', DOCKER_CONTAINER: 'wrt_app'}
+        vars: {DOCKER_USER: '{{.DOCKER_USER}}', DOCKER_CONTAINER: '{{.DOCKER_CONTAINER}}'}
 
   cache-cli:
     cmds:
