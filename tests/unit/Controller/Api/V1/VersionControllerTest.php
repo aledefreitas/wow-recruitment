@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 final class VersionControllerTest extends WebTestCase
@@ -84,7 +83,7 @@ final class VersionControllerTest extends WebTestCase
         $this->assertJsonStringEqualsJsonString(
             json_encode(
                 [
-                    'version' => $this->container->getParameter('app.version'),
+                    'version' => $this->container->getParameter('app.version') . 1,
                 ]
             ),
             $this->client->getResponse()->getContent()
