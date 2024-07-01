@@ -1,35 +1,25 @@
-# syntax = edrevo/dockerfile-plus
+FROM aledefreitas/php-nginx-env:dev AS dev
 
-ARG PHP_IMAGE=php:8.3-fpm-alpine
+FROM aledefreitas/php-nginx-env:prod AS prod
 
-FROM ${PHP_IMAGE} AS build
+RUN chown -R www-data:www-data /app
 
-INCLUDE+ ./.docker/app/.dockerfiles/nginx.Dockerfile
-INCLUDE+ ./.docker/app/.dockerfiles/app.Dockerfile
-INCLUDE+ ./.docker/app/.dockerfiles/php.Dockerfile
-INCLUDE+ ./.docker/app/.dockerfiles/cleanup.Dockerfile
+COPY --chown=www-data:www-data ./bin /app/bin
+COPY --chown=www-data:www-data ./config /app/config
+COPY --chown=www-data:www-data ./public /app/public
+COPY --chown=www-data:www-data ./src /app/src
+COPY --chown=www-data:www-data ./.env /app/.env
+COPY --chown=www-data:www-data ./composer.json /app/composer.json
+COPY --chown=www-data:www-data ./composer.lock /app/composer.lock
+COPY --chown=www-data:www-data ./package.json /app/package.json
+COPY --chown=www-data:www-data ./package-lock.json /app/package-lock.json
+COPY --chown=www-data:www-data ./symfony.lock /app/symfony.lock
 
-EXPOSE 80
+USER www-data
 
-CMD ["/usr/bin/supervisord", "-n"];
+RUN composer install --no-dev -o -a
 
-## DEVELOPMENT IMAGE
-FROM build AS dev
+USER root
 
-RUN pecl install xdebug-3.3.2 \
-    && docker-php-ext-enable xdebug
-
-ENV OPCACHE_ENABLED 0
-ENV PHP_DISPLAY_ERRORS 1
-ENV PHP_DISPLAY_STARTUP_ERRORS 1
-ENV APP_DEBUG 1
-
-EXPOSE 9003
-
-## PRODUCTION IMAGE
-FROM build AS prod
-
-ENV OPCACHE_ENABLED 1
-
-## STAGING IMAGE COPIES PROD
 FROM prod AS staging
+
