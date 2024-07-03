@@ -83,7 +83,7 @@ final class VersionControllerTest extends WebTestCase
         $this->assertJsonStringEqualsJsonString(
             json_encode(
                 [
-                    'version' => $this->container->getParameter('app.version'),
+                    '_version' => $this->container->getParameter('app.version'),
                 ]
             ),
             $this->client->getResponse()->getContent()
