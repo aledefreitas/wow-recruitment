@@ -28,6 +28,7 @@ The goal with this documentation is to keep an organized view of all current tas
     - [`ci:phpcs`](#ciphpcs)
     - [`ci:phpstan`](#ciphpstan)
     - [`ci:psalm`](#cipsalm)
+    - [`ci:test`](#citest)
 
 # Tasks
 
@@ -170,4 +171,10 @@ $ task ci:phpstan -- CLI_ARGS=*
 Runs `psalm` inside the container against all application code
 ```sh
 $ task ci:psalm
+```
+
+### `ci:test`
+Runs `phpunit` inside the container with `--testdox` param
+```sh
+$ task ci:test
 ```
