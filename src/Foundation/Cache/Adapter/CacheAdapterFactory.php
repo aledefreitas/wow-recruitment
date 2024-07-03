@@ -44,7 +44,13 @@ final class CacheAdapterFactory implements CacheAdapterFactoryInterface
         $secret = $secret ? $secret . '@' : $secret;
 
         return match (true) {
-            1 < count($multipleHosts) => '',
+            1 < count($multipleHosts) => 'redis:?host' . join(
+                '&host',
+                array_map(
+                    fn ($item) => '[' . $item . ']',
+                    $multipleHosts
+                )
+            ),
             $unixSocket || $host => 'redis://' . $secret . match (true) {
                 $unixSocket => $unixSocket,
                 default => $host . ':' . $port,
