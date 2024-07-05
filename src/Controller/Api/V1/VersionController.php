@@ -2,7 +2,7 @@
 
 namespace App\Controller\Api\V1;
 
-use App\Services\Version\ApiVersionService;
+use App\Service\Version\ApiVersionService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 

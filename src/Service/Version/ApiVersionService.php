@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Version;
+namespace App\Service\Version;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\Cache\CacheInterface;
