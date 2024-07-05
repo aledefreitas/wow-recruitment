@@ -6,8 +6,14 @@ includes:
 tasks:
   test:
     cmds:
+      - task: test-unit
+      - task: test-integration
+  test-*:
+    vars:
+      TESTSUITE: '{{index .MATCH 0}}'
+    cmds:
       - task: docker:exec
-        vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: './vendor/bin/simple-phpunit --testdox'}
+        vars: {DOCKER_USER: www-data, DOCKER_CONTAINER: 'wrt_app', EXEC_COMMAND: './vendor/bin/simple-phpunit --testsuite={{.TESTSUITE}} --testdox'}
   phpcs-fix:
     cmds:
       - task: docker:exec
