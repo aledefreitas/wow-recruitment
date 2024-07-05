@@ -10,8 +10,8 @@ use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 final class VersionControllerTest extends WebTestCase
 {
+    private const API_URI = '/api/v1/version';
     protected ContainerInterface $container;
-
     protected KernelBrowser $client;
 
     /**
@@ -30,7 +30,7 @@ final class VersionControllerTest extends WebTestCase
     public function testItRefusesPostRequests(): void
     {
         $this->expectException(MethodNotAllowedHttpException::class);
-        $this->client->request(Request::METHOD_POST, '/api/v1/version');
+        $this->client->request(Request::METHOD_POST, self::API_URI);
     }
 
     /**
@@ -39,7 +39,7 @@ final class VersionControllerTest extends WebTestCase
     public function testItRefusesPatchRequests(): void
     {
         $this->expectException(MethodNotAllowedHttpException::class);
-        $this->client->request(Request::METHOD_PATCH, '/api/v1/version');
+        $this->client->request(Request::METHOD_PATCH, self::API_URI);
     }
 
     /**
@@ -48,7 +48,7 @@ final class VersionControllerTest extends WebTestCase
     public function testItRefusesDeleteRequests(): void
     {
         $this->expectException(MethodNotAllowedHttpException::class);
-        $this->client->request(Request::METHOD_DELETE, '/api/v1/version');
+        $this->client->request(Request::METHOD_DELETE, self::API_URI);
     }
 
     /**
@@ -57,7 +57,7 @@ final class VersionControllerTest extends WebTestCase
     public function testItRefusesPutRequests(): void
     {
         $this->expectException(MethodNotAllowedHttpException::class);
-        $this->client->request(Request::METHOD_PUT, '/api/v1/version');
+        $this->client->request(Request::METHOD_PUT, self::API_URI);
     }
 
     /**
@@ -65,7 +65,7 @@ final class VersionControllerTest extends WebTestCase
      */
     public function testItReturnsAJsonFormat(): void
     {
-        $this->client->request(Request::METHOD_GET, '/api/v1/version');
+        $this->client->request(Request::METHOD_GET, self::API_URI);
 
         $this->assertResponseIsSuccessful();
         $this->assertResponseFormatSame('json');
@@ -77,7 +77,7 @@ final class VersionControllerTest extends WebTestCase
      */
     public function testApiVersionMatchesWithApplicationVersion(): void
     {
-        $this->client->request(Request::METHOD_GET, '/api/v1/version');
+        $this->client->request(Request::METHOD_GET, self::API_URI);
 
         $this->assertResponseIsSuccessful();
         $this->assertJsonStringEqualsJsonString(
