@@ -4,8 +4,8 @@ framework:
         app: app.cache.adapter
 
 services:
-    App\Foundation\Cache\Contracts\CacheConfigInterface:
-        factory: [ '@App\Foundation\Cache\CacheConfigFactory', 'createConfig' ]
+    App\Common\Infrastructure\Foundation\Cache\Contracts\CacheConfigInterface:
+        factory: [ '@App\Common\Infrastructure\Foundation\Cache\CacheConfigFactory', 'createConfig' ]
         arguments:
             - cache-host: '%env(string:KEYDB_CACHE_HOST)%'
               cache-port: '%env(string:KEYDB_CACHE_PORT)%'
@@ -14,16 +14,16 @@ services:
               cache-default-ttl: '%env(int:KEYDB_CACHE_TTL)%'
 
     app.cache.adapter.factory:
-        class: 'App\Foundation\Cache\Adapter\CacheAdapterFactory'
+        class: 'App\Common\Infrastructure\Foundation\Cache\Adapter\CacheAdapterFactory'
 
     app.cache.adapter:
-        class: 'App\Foundation\Cache\Contracts\Adapter\CacheAdapterFactoryInterface'
+        class: 'App\Common\Infrastructure\Foundation\Cache\Contracts\Adapter\CacheAdapterFactoryInterface'
         factory: [ '@app.cache.adapter.factory', 'createAdapter' ]
         arguments:
             - 'namespace'
-            - '@App\Foundation\Cache\Contracts\CacheConfigInterface'
+            - '@App\Common\Infrastructure\Foundation\Cache\Contracts\CacheConfigInterface'
 
 when@test:
     services:
         app.cache.adapter.factory:
-            class: 'App\Foundation\Testing\Cache\Adapter\CacheAdapterFactory'
+            class: 'App\Common\Infrastructure\Foundation\Testing\Cache\Adapter\CacheAdapterFactory'

@@ -1,13 +1,25 @@
+parameters:
+    app.db.host: 'localhost'
+    app.db.port: 5432
+    app.db.user: 'wrt'
+    app.db.password: 'changeme'
+    app.db.dbname: 'wow_recruitment'
+
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
+        default_connection: default
+        connections:
+            default:
+                dbname: '%env(resolve:default:app.db.dbname:string:POSTGRE_DATABASE_DB)%'
+                host: '%env(resolve:default:app.db.host:string:POSTGRE_DATABASE_CONNECTION_POOL_HOST)%'
+                port: '%env(resolve:default:app.db.port:string:POSTGRE_DATABASE_CONNECTION_POOL_PORT)%'
+                user: '%env(resolve:default:app.db.user:string:POSTGRE_DATABASE_USER)%'
+                password: '%env(resolve:default:app.db.password:string:POSTGRE_DATABASE_PASSWORD)%'
+                driver: pdo_pgsql
+                server_version: '16.3'
+                profiling_collect_backtrace: '%kernel.debug%'
+                use_savepoints: true
 
-        # IMPORTANT: You MUST configure your server version,
-        # either here or in the DATABASE_URL env var (see .env file)
-        #server_version: '16'
-
-        profiling_collect_backtrace: '%kernel.debug%'
-        use_savepoints: true
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
@@ -16,14 +28,10 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            App:
-                type: attribute
-                is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
-        controller_resolver:
-            auto_mapping: false
+            Api\Users:
+                type: xml
+                dir: '%kernel.project_dir%/src/Api/Users/Infrastructure/Doctrine/Orm/Mappings'
+                prefix: App\Api\Users\Domain\Entity
 
 when@test:
     doctrine:

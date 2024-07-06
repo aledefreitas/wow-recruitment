@@ -149,6 +149,12 @@ services:
       args:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl --fail http://localhost:8080/api/health-check || exit 1",
+        ]
     links:
       - wrt_keydb
       - wrt_mongodb

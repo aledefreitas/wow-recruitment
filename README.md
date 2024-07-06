@@ -63,8 +63,9 @@ It `SHOULD` accomplish the following:
 - [ ] ~~Service Oriented Architecture~~
   - _Decided to implement a DDD approach (albeit being much more complex), since I already had plenty of experience with SoA. This way I can practice DDD and Hexagonal Architecture with this project._
 
-- [ ] Domain Driven Design
-- [ ] Hexagonal Architecture
+- [x] Domain Driven Design
+- [x] Hexagonal Architecture
+- [ ] CQRS
 
 ### Databases
 - [x] [MongoDB](https://www.mongodb.com/docs/)
