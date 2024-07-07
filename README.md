@@ -60,9 +60,6 @@ It `SHOULD` accomplish the following:
 > These are subject to change throughout the development of this project
 
 ### Application Architecture
-- [ ] ~~Service Oriented Architecture~~
-  - _Decided to implement a DDD approach (albeit being much more complex), since I already had plenty of experience with SoA. This way I can practice DDD and Hexagonal Architecture with this project._
-
 - [x] Domain Driven Design
 - [x] Hexagonal Architecture
 - [ ] CQRS
