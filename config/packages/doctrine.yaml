@@ -32,6 +32,8 @@ doctrine:
                 type: xml
                 dir: '%kernel.project_dir%/src/Api/Users/Infrastructure/Doctrine/Orm/Mappings'
                 prefix: App\Api\Users\Domain\Entity
+        controller_resolver:
+            auto_mapping: false
 
 when@test:
     doctrine:
