@@ -23,7 +23,7 @@ final class CacheConfig implements CacheConfigInterface
     ) {
         $this->params = [
             ...self::DEFAULT_PARAMS,
-            ...$params,
+            ...array_intersect_key($params, self::DEFAULT_PARAMS),
         ];
     }
 

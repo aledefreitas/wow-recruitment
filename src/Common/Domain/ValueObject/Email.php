@@ -8,9 +8,8 @@ final readonly class Email implements \Stringable
 
     public function __construct(string $email)
     {
-        if (filter_var($email, \FILTER_VALIDATE_EMAIL)) {
-            // phpcs:ignore
-            throw new \InvalidArgumentException(sprintf('Invalid EMAIL "%s" supplied in "%s"', $email, get_class($this)));
+        if (!filter_var($email, \FILTER_VALIDATE_EMAIL)) {
+            throw new \InvalidArgumentException(sprintf('Invalid EMAIL "%s" supplied', $email));
         }
 
         $this->email = $email;

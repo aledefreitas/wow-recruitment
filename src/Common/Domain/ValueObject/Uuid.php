@@ -4,7 +4,7 @@ namespace App\Common\Domain\ValueObject;
 
 final readonly class Uuid implements \Stringable
 {
-    protected const REGEX = '^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\z$';
+    protected const REGEX = '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$';
     private string $uuid;
 
     public function __construct(string $uuid)

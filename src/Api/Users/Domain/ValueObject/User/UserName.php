@@ -25,6 +25,10 @@ final readonly class UserName implements \Stringable
             $message = 'It must have at least 8 characters.';
         }
 
+        if (strlen($userName) > 50) {
+            $message = 'It must have 50 or less characters.';
+        }
+
         $pattern = sprintf('/%s/', self::REGEX);
         if (1 !== preg_match($pattern, $userName)) {
             $message = sprintf('It must match the pattern: "%s"', $pattern);
