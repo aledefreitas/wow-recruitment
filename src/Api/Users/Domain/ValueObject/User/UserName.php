@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Users\Domain\ValueObject\User;
+namespace App\Api\Users\Domain\ValueObject\User;
 
 final readonly class UserName implements \Stringable
 {

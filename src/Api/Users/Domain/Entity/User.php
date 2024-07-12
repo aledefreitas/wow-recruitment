@@ -3,9 +3,9 @@
 namespace App\Api\Users\Domain\Entity;
 
 use App\Api\Users\Domain\ValueObject\User\Status;
+use App\Api\Users\Domain\ValueObject\User\UserName;
 use App\Common\Domain\ValueObject\Email;
 use App\Common\Domain\ValueObject\Uuid;
-use App\Users\Domain\ValueObject\User\UserName;
 
 final class User
 {

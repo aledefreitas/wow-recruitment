@@ -2,7 +2,7 @@
 
 namespace App\Tests\Unit\Api\Users\Domain\ValueObject\User;
 
-use App\Users\Domain\ValueObject\User\UserName;
+use App\Api\Users\Domain\ValueObject\User\UserName;
 use PHPUnit\Framework\TestCase;
 
 class UserNameTest extends TestCase
