@@ -18,6 +18,7 @@
 - [Summary](#summary)
 - [Project Main Goals](#project-main-goals)
 - [Tech Stack Wishlist](#tech-stack-wishlist)
+    - [Application Architecture](#application-architecture)
     - [Databases](#databases)
     - [In-Memory Store](#in-memory-store)
     - [Language](#language)
@@ -36,6 +37,9 @@
     - [Production](#production)
 - [Documentation](#documentation)
 - [Running Tests](#running-tests)
+    - [Unit Tests](#unit-tests)
+    - [Integration Tests](#integration-tests)
+    - [Run all tests](#run-all-tests)
 
 # Project Main Goals
 > [!WARNING]
@@ -54,6 +58,12 @@ It `SHOULD` accomplish the following:
 # Tech Stack Wishlist
 > [!CAUTION]
 > These are subject to change throughout the development of this project
+
+### Application Architecture
+- [x] Domain Driven Design
+- [x] Hexagonal Architecture
+- [ ] CQRS
+
 ### Databases
 - [x] [MongoDB](https://www.mongodb.com/docs/)
 - [x] [PostgreSQL](https://www.postgresql.org/docs/)
@@ -72,10 +82,11 @@ It `SHOULD` accomplish the following:
 - [x] [PHP CS Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
 - [x] [PHPStan](https://phpstan.org/)
 - [ ] ~~[PHP Mess Detector](https://phpmd.org/)~~
-(_will be using psalm instead_)
+  - _Decided to use psalm instead._
 - [x] ~~[psalm](https://psalm.dev/)~~
-(_had to be removed, current version is not compatible with Symfony Testing 7.1 dependencies. Should implement this in CI later._)
+  - _Had to be removed, current version is not compatible with Symfony Testing 7.1 dependencies. Should implement this in CI later or when its version is compatible with Symfony 7.1._
 - [x] [commitlint](https://commitlint.js.org/)
+- [ ] [deptrac](https://github.com/qossmic/deptrac)
 
 ### Message Broker
 - [ ] [Apache Kafka](https://kafka.apache.org/documentation/)
@@ -84,7 +95,7 @@ It `SHOULD` accomplish the following:
 - [x] [Taskfile](https://taskfile.dev/)
 - [x] [Husky](https://typicode.github.io/husky/)
 - [ ] ~~[PKL](https://pkl-lang.org/index.html)~~
-(_can't justify this not reinventing the wheel on this project_)
+  - _Can't justify this not reinventing the wheel on this project._
 - [x] [Docker](https://docs.docker.com/)
 
 ### Debugging
@@ -130,4 +141,18 @@ You can see the [documentation here!](./docs)
 Please, bear in mind that this will evolve alongside the project, so it might be pretty incomplete by the time you see it :frowning:
 
 # Running Tests
-TBD
+
+### Unit Tests
+```sh
+$ task ci:test-unit
+```
+
+### Integration Tests
+```sh
+$ task ci:test-integration
+```
+
+### Run all tests
+```sh
+$ task ci:test
+```

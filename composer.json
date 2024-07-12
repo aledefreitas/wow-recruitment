@@ -14,11 +14,15 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/doctrine-bundle": "^2.12",
+        "doctrine/doctrine-migrations-bundle": "^3.3",
+        "doctrine/orm": "^3.2",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.1.*",
         "symfony/runtime": "7.1.*",
+        "symfony/uid": "7.1.*",
         "symfony/yaml": "7.1.*"
     },
     "require-dev": {
@@ -26,9 +30,11 @@
         "phpstan/phpstan": "^1.11",
         "phpunit/phpunit": "^9.5",
         "slevomat/coding-standard": "^8.15",
+        "spatie/phpunit-watcher": "^1.24",
         "squizlabs/php_codesniffer": "^3.10",
         "symfony/browser-kit": "7.1.*",
         "symfony/css-selector": "7.1.*",
+        "symfony/maker-bundle": "^1.60",
         "symfony/phpunit-bridge": "^7.1"
     },
     "config": {
@@ -47,8 +53,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
-        }
+            "App\\Tests\\Feature\\": "tests/feature",
+            "App\\Tests\\Integration\\": "tests/integration",
+            "App\\Tests\\Unit\\": "tests/unit"
+          }
     },
     "replace": {
         "symfony/polyfill-ctype": "*",

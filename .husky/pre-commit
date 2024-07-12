@@ -1,4 +1,8 @@
 #!/bin/sh
-STAGED=$(git diff --name-only --cached --diff-filter=ACMRTU)
-task ci:phpcs -- --no-colors $STAGED
-task ci:phpstan -- analyze $STAGED
+set +e
+STAGED=$(git diff --name-only --cached --diff-filter=ACMRTU | grep -E "(config|src|public|tests|bin)\/")
+set -e
+if [ ! -z "$STAGED" ]; then
+    task -x ci:phpcs -- --no-colors $STAGED
+    task -x ci:phpstan -- analyze $STAGED
+fi

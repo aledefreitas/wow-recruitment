@@ -94,4 +94,4 @@ phpstan.neon
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 
-.code.coverage.html
+.code.coverage

@@ -29,6 +29,7 @@ The goal with this documentation is to keep an organized view of all current tas
     - [`ci:phpstan`](#ciphpstan)
     - [`ci:psalm`](#cipsalm)
     - [`ci:test`](#citest)
+    - [`ci:test-*`](#citest-)
 
 # Tasks
 
@@ -174,7 +175,13 @@ $ task ci:psalm
 ```
 
 ### `ci:test`
-Runs `phpunit` inside the container with `--testdox` param
+Runs unit and integration tests
 ```sh
 $ task ci:test
+```
+
+### `ci:test-*`
+Runs `phpunit` inside the container with `--testdox` param for a given `TESTSUITE`
+```sh
+$ task ci:test-<testsuite> TESTSUITE=*
 ```
